@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "Passenger.h"
-
+/***************************************************************************************/
 /** \brief Parsea los datos los datos de los pasajeros desde el archivo data.csv (modo texto).
  *
  * \param path char*
@@ -46,7 +46,7 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 
 	return retorno;
 }
-
+/***************************************************************************************/
 /** \brief Parsea los datos los datos de los pasajeros desde el archivo data.csv (modo binario).
  *
  * \param path char*
@@ -64,7 +64,9 @@ int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 		while(!feof(pFile))
 		{
 			aux = Passenger_new();
+
 			fread(aux,sizeof(Passenger),1,pFile);
+
 			if(aux != NULL)
 			{
 				ll_add(pArrayListPassenger, aux);
@@ -74,7 +76,7 @@ int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 
     return retorno;
 }
-
+/***************************************************************************************/
 /**
  *
  * @param pFile
@@ -121,6 +123,24 @@ int parser_cargarTexto(FILE* pFile , LinkedList* pArrayListPassenger)
 				retorno = 0;
 			}
 		}
+	}
+
+	return retorno;
+}
+/***************************************************************************************/
+/**
+ *
+ * @param pFile
+ * @param pArrayListPassenger
+ * @return
+ */
+int parser_cargarBinario(FILE* pFile , LinkedList* pArrayListPassenger)
+{
+	int retorno = -1;
+
+	if(pFile != NULL && pArrayListPassenger != NULL)
+	{
+
 	}
 
 	return retorno;

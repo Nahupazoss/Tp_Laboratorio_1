@@ -11,6 +11,7 @@
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Passenger.h"
+#include "utn.h"
 
 // todo lo que int y float si es * en el getter tambien *
 /***************************************************************************************/
@@ -34,8 +35,8 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr
 		Passenger_setApellido(onePassenger , apellidoStr);
 		Passenger_setPrecio(onePassenger , atof(precioStr) );
 		Passenger_setTipoPasajero(onePassenger , Passenger_TipoPasajeroStr(tipoPasajeroStr));
-		Passenger_setStatusFlight(onePassenger , statusFlightStr );
-		Passenger_setCodigoVuelo(onePassenger , codigoVueloStr);
+		Passenger_setStatusFlight(onePassenger ,statusFlightStr);
+		Passenger_setCodigoVuelo(onePassenger ,codigoVueloStr );
 	}
 	else
 	{
@@ -47,7 +48,11 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr
 /***************************************************************************************/
 void Passenger_delete(Passenger* this)
 {
-	free(this);
+	if(this != NULL)
+	{
+		free(this);
+	}
+
 }
 /***************************************************************************************/
 /***************************************************************************************/
@@ -278,6 +283,7 @@ void Passenger_mostrar(Passenger* onePassenger)
 	Passenger_getStatusFlight(onePassenger, auxStatusFlight);
 	Passenger_TipoPasajeroInt(typePassenger, auxTypePassenger);
 
+
 	if(onePassenger != NULL)
 	{
 		printf("%4d\t%-15s\t%-15s\t%2.f\t%15s\t%15s\t%15s\n",auxId,auxNombre,auxApellido,auxPrecio,
@@ -290,6 +296,8 @@ void Passenger_mostrar(Passenger* onePassenger)
 	}
 
 }
+/***************************************************************************************/
+/***************************************************************************************/
 /***************************************************************************************/
 int Passenger_TipoPasajeroStr(char* tipoStr)
 {
@@ -320,6 +328,115 @@ int Passenger_TipoPasajeroStr(char* tipoStr)
 	return retorno;
 }
 /***************************************************************************************/
+int Passenger_statusFlightStr(char* statusStr)
+{
+	int retorno = -1;
+
+	if(statusStr !=NULL)
+	{
+		if(strcmp(statusStr,"Aterrizado") == 0)
+		{
+			retorno = 1;
+		}
+		else
+		{
+			if(strcmp(statusStr,"En Horario") == 0)
+			{
+				retorno = 2;
+			}
+			else
+			{
+				if(strcmp(statusStr,"Demorado") == 0)
+				{
+					retorno = 3;
+				}
+				else
+				{
+					if(strcmp(statusStr,"En Vuelo")== 0)
+					{
+						retorno = 4;
+					}
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+/***************************************************************************************/
+int Passenger_flightCodeStr(char* flyCodeStr)
+{
+	int retorno = -1;
+
+	if(flyCodeStr !=NULL)
+	{
+		if(strcmp(flyCodeStr,"IB0800A") == 0)
+		{
+			retorno = 1;
+		}
+		else
+		{
+			if(strcmp(flyCodeStr,"MM0987B") == 0)
+			{
+				retorno = 2;
+			}
+			else
+			{
+				if(strcmp(flyCodeStr,"BA2491A") == 0)
+				{
+					retorno = 3;
+				}
+				else
+				{
+					if(strcmp(flyCodeStr,"BR3456J")== 0)
+					{
+						retorno = 4;
+					}
+					else
+					{
+						if(strcmp(flyCodeStr,"FR5678G")== 0)
+						{
+							retorno = 5;
+						}
+						else
+						{
+							if(strcmp(flyCodeStr,"HY4567D")== 0)
+							{
+								retorno = 6;
+							}
+							else
+							{
+								if(strcmp(flyCodeStr,"GU2345F")== 0)
+								{
+									retorno = 7;
+								}
+								else
+								{
+									if(strcmp(flyCodeStr,"TU6789B")== 0)
+									{
+										retorno = 8;
+									}
+									else
+									{
+										if(strcmp(flyCodeStr,"HY4567D")== 0)
+										{
+											retorno = 9;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+/***************************************************************************************/
+/***************************************************************************************/
+/***************************************************************************************/
 int Passenger_TipoPasajeroInt(int tipo,char* tipoStr)
 {
 	int retorno = -1;
@@ -337,12 +454,132 @@ int Passenger_TipoPasajeroInt(int tipo,char* tipoStr)
 		case 3:
 			strcpy(tipoStr,"EconomyClass");
 		break;
+		default:
+			printf("error");
+		break;
 		}
 	}
 	return retorno;
 }
 /***************************************************************************************/
+int Passenger_flightCodeInt(int flightCode,char* flightcodeStr)
+{
+	int retorno = -1;
 
+	if(flightcodeStr != NULL)
+	{
+		switch(flightCode)
+		{
+		case 1:
+			strcpy(flightcodeStr,"IB0800A");
+		break;
+		case 2:
+			strcpy(flightcodeStr,"MM0987B");
+		break;
+		case 3:
+			strcpy(flightcodeStr,"BA2491A");
+		break;
+		case 4:
+			strcpy(flightcodeStr,"BR3456J");
+		break;
+		case 5:
+			strcpy(flightcodeStr,"FR5678G");
+		break;
+		case 6:
+			strcpy(flightcodeStr,"HY4567D");
+		break;
+		case 7:
+			strcpy(flightcodeStr,"GU2345F");
+		break;
+		case 8:
+			strcpy(flightcodeStr,"TU6789B");
+		break;
+		case 9:
+			strcpy(flightcodeStr,"HY4567D");
+		break;
+		default:
+			printf("error");
+		break;
+		}
+	}
+	return retorno;
+}
+/***************************************************************************************/
+int Passenger_statusInt(int status,char* statusStr)
+{
+	int retorno = -1;
+
+	if(statusStr != NULL)
+	{
+		switch(status)
+		{
+		case 1:
+			strcpy(statusStr,"Aterrizado");
+		break;
+		case 2:
+			strcpy(statusStr,"En Horario");
+		break;
+		case 3:
+			strcpy(statusStr,"Demorado");
+		break;
+		case 4:
+			strcpy(statusStr,"En Vuelo");
+		break;
+		default:
+			printf("error");
+		break;
+		}
+	}
+	return retorno;
+}
+/***************************************************************************************/
+/***************************************************************************************/
+/***************************************************************************************/
+int Passenger_add(LinkedList* onePassenger)
+{
+	int retorno = -1;
+	int auxId = 1000;
+	char auxNombre[50];
+	char auxApellido[50];
+	float auxPrecio;
+	int typePassenger;
+	char auxTypePassenger[20];
+	int flyCode;
+	char auxFlyCode[20];
+	int statusFlight;
+	char auxStatusFlight[20];
+	Passenger* aux = NULL;
+
+
+
+	if(onePassenger != NULL)
+	{
+		aux = Passenger_new();
+
+		if(aux != NULL)
+		{
+			if(!(utn_getNombre(auxNombre, 50, "\nIngrese su nombre:", "\nError,reingrese su nombre:(no se aceptan numeros ni simbolos)", 3))&&
+			   !(utn_getNombre(auxApellido, 50, "\nIngrese su apellido:", "\nError,reingrese su apellido:(no se aceptan numeros ni simbolos)", 3))&&
+			   !(utn_getNumeroFlotante(&auxPrecio,"\nIngrese su precio:", "\nError,reingrese su precio:(solo numeros)", 1, 1000000, 3))&&
+			   !(utn_getNumero(&typePassenger, "\nIngrese su typePassenger:", "\nError,reingrese su typePassenger:(1-2-3)", 1, 3, 3))&&
+			   !(utn_getNumero(&flyCode, "\nIngrese su flyCode:", "\nError,reingrese su flyCode:(1-2-3-4-5-6-7-8-9)", 1, 9, 3))&&
+			   !(utn_getNumero(&statusFlight, "\nIngrese su statusFlight:", "\nError,reingrese su status:(1-2-3-)", 1, 3, 3)))
+			{
+				Passenger_TipoPasajeroInt(typePassenger, auxTypePassenger);
+				Passenger_flightCodeInt(flyCode,auxFlyCode);
+				Passenger_statusInt(statusFlight, auxStatusFlight);
+				auxId++;
+				ll_add(onePassenger, aux);
+			}
+		}
+	}
+
+
+
+
+
+	return retorno;
+}
 /***************************************************************************************/
 
 /***************************************************************************************/

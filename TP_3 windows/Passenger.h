@@ -52,6 +52,12 @@ int Passenger_getStatusFlight(Passenger* this,char* statusFlight);
 void Passenger_mostrar(Passenger* this);
 /**************************************************************/
 int Passenger_TipoPasajeroStr(char* tipoStr);
-/**************************************************************/
 int Passenger_TipoPasajeroInt(int tipo,char* tipoStr);
+/**************************************************************/
+int Passenger_flightCodeInt(int flightCode,char* flightcodeStr);
+int Passenger_flightCodeStr(char* flyCodeStr);
+/**************************************************************/
+int Passenger_statusInt(int status,char* statusStr);
+int Passenger_statusFlightStr(char* statusStr);
+/**************************************************************/
 #endif /* PASSENGER_H_ */

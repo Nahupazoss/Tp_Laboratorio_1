@@ -44,13 +44,15 @@ int main()
             break;
 
             case 3://alta
-
+            	controller_addPassenger(listaPasajeros);
             break;
 
             case 4://modificar
+            	controller_editPassenger(listaPasajeros);
             break;
 
             case 5://baja
+            	controller_removePassenger(listaPasajeros);
             break;
 
             case 6://list passenger
@@ -58,6 +60,7 @@ int main()
             break;
 
             case 7://ordenar pasajeros
+
             break;
 
             case 8://guardar los datos txt
@@ -65,7 +68,7 @@ int main()
             break;
 
             case 9://guardar los datos bn
-
+            	controller_saveAsBinary("data2.bin", listaPasajeros);
             break;
 
             case 10:

@@ -56,11 +56,11 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
 		if(pArchivo != NULL)
 		{
 			parser_PassengerFromBinary(pArchivo, pArrayListPassenger);
-			printf("\nCarga exitosa...\n");
+			printf("\nCarga exitosa del archivo binario...\n");
 		}
 		else
 		{
-			printf("\nError con la carga\n");
+			printf("\nError con la carga del archivo binario\n");
 		}
 		fclose(pArchivo);
 		retorno = 0;
@@ -84,12 +84,9 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 
 	if(pArrayListPassenger != NULL)
 	{
-
-
-
-
+		Passenger_add(pArrayListPassenger);
+		retorno = 0;
 	}
-
 
     return retorno;
 }
@@ -105,7 +102,34 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
  */
 int controller_editPassenger(LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno = - 1;
+	int i;
+	int tam = ll_len(pArrayListPassenger);
+	int auxId;
+	int id;
+	Passenger* aux;
+
+	if(pArrayListPassenger != NULL)
+	{
+		for(i=0;i<tam;i++)
+		{
+			aux = (Passenger*)ll_get(pArrayListPassenger, i);
+			Passenger_mostrar(aux);
+
+			if(auxId == id)
+			{
+
+			}
+
+
+		}
+
+		retorno = 0;
+
+	}
+
+
+    return retorno;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -119,10 +143,18 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
  */
 int controller_removePassenger(LinkedList* pArrayListPassenger)
 {
+	int retorno = - 1;
+
+	if(pArrayListPassenger != NULL)
+	{
 
 
 
-    return 1;
+
+	}
+
+
+    return retorno;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -197,7 +229,10 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 
 		parser_PassengerFromText(pFile, pArrayListPassenger);
 
+
 		fclose(pFile);
+
+		retorno = 0;
 	}
 
 
@@ -216,7 +251,20 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 {
 	int retorno = -1;
+		FILE* pFile;
 
-    return retorno;
+		if(path != NULL && pArrayListPassenger != NULL)
+		{
+			pFile = fopen(path,"wb");
+
+			parser_PassengerFromBinary(pFile, pArrayListPassenger);
+
+			fclose(pFile);
+
+			retorno = 0;
+		}
+
+
+	    return retorno;
 }
 
