@@ -40,7 +40,7 @@ Passenger* Passenger_newParametros(char* idStr,char* nombreStr,char* apellidoStr
 	}
 	else
 	{
-		printf("\nNo se pudo asignar memoria..\n");
+		printf("\n◉No se pudo asignar memoria..\n");
 	}
 
 	return  onePassenger;
@@ -88,7 +88,7 @@ int Passenger_getId(Passenger* this,int* id)
 int Passenger_setNombre(Passenger* this,char* nombre)
 {
     int retorno = -1;
-    //falta validar
+
     if(this != NULL && nombre != NULL && strlen(nombre) > 2 )
     {
         strcpy(this->nombre, nombre);
@@ -533,22 +533,15 @@ int Passenger_statusInt(int status,char* statusStr)
 	return retorno;
 }
 /***************************************************************************************/
-int Passenger_priceStr()
-{
-	int retorno = -1;
-
-
-	return retorno;
-}
 /***************************************************************************************/
 /***************************************************************************************/
-int Passenger_add(LinkedList* onePassenger)
+int Passenger_add(LinkedList* this)
 {
 	int retorno = -1;
-	int auxId = 1000;
+	char auxId[10] = "1001";
 	char auxNombre[50];
 	char auxApellido[50];
-	float auxPrecio;
+	char auxPrecio[10];
 	int typePassenger;
 	char auxTypePassenger[20];
 	int flyCode;
@@ -556,35 +549,97 @@ int Passenger_add(LinkedList* onePassenger)
 	int statusFlight;
 	char auxStatusFlight[20];
 	Passenger* aux = NULL;
+	//FILE* auxid;
 
-	if(onePassenger != NULL)
+	if(this != NULL)
 	{
-		aux = Passenger_new();
-
-		if(aux != NULL)
-		{
-			//isdigit
-			if(!(utn_getNombre(auxNombre, 50, "\n◉Ingrese su nombre:", "\nError,reingrese su nombre:(no se aceptan numeros ni simbolos)", 3))&&
-			   !(utn_getNombre(auxApellido, 50, "\n◉Ingrese su apellido:", "\nError,reingrese su apellido:(no se aceptan numeros ni simbolos)", 3))&&
-			   !(utn_getNumeroFlotante(&auxPrecio,"\n◉Ingrese su precio:", "\nError,reingrese su precio:(solo numeros)", 1, 1000000, 3))&&
-			   !(utn_getNumero(&typePassenger, "\n◉Ingrese su typePassenger:", "\nError,reingrese su typePassenger:(1-2-3)", 1, 3, 3))&&
-			   !(utn_getNumero(&flyCode, "\n◉Ingrese su flyCode:", "\nError,reingrese su flyCode:(1-2-3-4-5-6-7-8-9)", 1, 9, 3))&&
-			   !(utn_getNumero(&statusFlight, "\n◉Ingrese su statusFlight:", "\nError,reingrese su status:(1-2-3-)", 1, 3, 3)))
+			if(!(utn_getNombre(auxNombre, 50, "\n◉Ingrese su nombre:", "\n◉Error,reingrese su nombre:(no se aceptan numeros ni simbolos)", 3))&&
+			   !(utn_getNombre(auxApellido, 50, "\n◉Ingrese su apellido:", "\n◉Error,reingrese su apellido:(no se aceptan numeros ni simbolos)", 3))&&
+			   !(utn_getDni(auxPrecio, 10, "\n◉Ingrese su precio:", "\n◉Error,reingrese su precio", 3))&&
+			   !(utn_getNumero(&typePassenger, "\n◉Ingrese su typePassenger:", "\n◉Error,reingrese su typePassenger:(1-2-3)", 1, 3, 3))&&
+			   !(utn_getNumero(&flyCode, "\n◉Ingrese su flyCode:", "\n◉Error,reingrese su flyCode:(1-2-3-4-5-6-7-8-9)", 1, 9, 3))&&
+			   !(utn_getNumero(&statusFlight, "\n◉Ingrese su statusFlight:", "\n◉Error,reingrese su status:(1-2-3-)", 1, 3, 3)))
 			{
 				Passenger_TipoPasajeroInt(typePassenger, auxTypePassenger);
 				Passenger_flightCodeInt(flyCode,auxFlyCode);
 				Passenger_statusInt(statusFlight, auxStatusFlight);
 
-				auxId++;
-				ll_add(onePassenger, aux);
+				aux = Passenger_newParametros(auxId, auxNombre, auxApellido, auxPrecio, auxTypePassenger, auxStatusFlight, auxFlyCode);
+
+				if(aux != NULL)
+				{
+					ll_add(this, aux);
+				}
 			}
-		}
 	}
 
 	return retorno;
 }
 /***************************************************************************************/
+int Passenger_modificar(Passenger* auxPassenger)
+{
+	int opcion;
+	int retorno = -1;
+	int auxStatus;
+	int auxFlyCode;
 
+	if(auxPassenger != NULL)
+	{
+		do
+		{
+			opcion = menu_modificar();
+			//
+			//TENGO QUE USAR LOS SET (Passenger_get....)
+			//
+			switch(opcion)
+			{
+			case 1:
+				utn_getNombre(auxPassenger->nombre, 20, "\n◉Ingrese su nuevo nombre:",
+				"\n◉Error,reingrese su nombre:(no se aceptan numeros ni simbolos)", 3);
+
+				printf("\nSu cambio se ha realizado exitosamente\n");
+			break;
+			case 2:
+				utn_getNombre(auxPassenger->apellido, 20, "\n◉Ingrese su nuevo apellido:",
+				"\n◉Error,reingrese su apellido:(no se aceptan numeros ni simbolos)", 3);
+
+				printf("\nSu cambio se ha realizado exitosamente\n");
+			break;
+			case 3:
+				utn_getNumeroFlotante(&auxPassenger->precio, "\n◉Ingrese su nuevo precio:", "\n◉Error,reingrese su precio", 1, 10000, 3);
+
+				printf("\nSu cambio se ha realizado exitosamente\n");
+			break;
+			case 4:
+				utn_getNumero(&auxStatus,  "\n1►Aterrizado\n2►En Horario\n3►Demorado\n4►En Vuelo"
+				"\n◉Ingrese su nuevo status:", "\n◉Error,reingrese su status", 1, 9, 3);
+				Passenger_statusInt(auxStatus, auxPassenger->statusFlight);
+				printf("\nSu cambio se ha realizado exitosamente\n");
+			break;
+			case 5:
+				utn_getNumero(&auxFlyCode, "\n1►IB0800A\n2►MM0987B\n3►BA2491A\n4►BR3456J"
+				"\n5►FR5678G\n6►HY4567D\n7►GU2345F\n8►TU6789B\n9►HY4567D\n◉Ingrese su nuevo fly code:", "\n◉Error,reingrese su fly code""", 1, 9, 3);
+				Passenger_flightCodeInt(auxFlyCode,auxPassenger->codigoVuelo);
+				printf("\nSu cambio se ha realizado exitosamente\n");
+			break;
+			case 6:
+				utn_getNumero(&auxPassenger->tipoPasajero, "\n1►FirstClass\n2►ExecutiveClass\n3►EconomyClass"
+				"\n◉Ingrese su nuevo type passenger:", "\n◉Error,reingrese su type passenger:", 1, 3, 3);
+
+				printf("\n◉Su cambio se ha realizado exitosamente\n");
+			break;
+			case 7:
+				printf("\n◉Has left..\n");
+			break;
+			}
+
+		}while(opcion != 7);
+
+		retorno = 0;
+	}
+
+	return retorno;
+}
 /***************************************************************************************/
 
 /***************************************************************************************/

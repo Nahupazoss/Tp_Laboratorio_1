@@ -5,6 +5,8 @@
 #include "LinkedList.h"
 #include "Controller.h"
 #include "Passenger.h"
+#include "utn.h"
+#include "parser.h"
 /****************************************************
     Menu:
      1. Cargar los datos de los pasajeros desde el archivo data.csv (modo texto).
@@ -18,18 +20,16 @@
      9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario).
     10. Salir
 *****************************************************/
-int validarNumero(char *numero);
-
-int pedirEntero(char *mensaje,char *mensajeError);
-
-int menu();
-
 int main()
 {
 	setbuf(stdout,NULL);
     int option = 0;
+    //FILE* pArchivoId;
 
     LinkedList* listaPasajeros = ll_newLinkedList();
+
+    //pArchivoId = fopen("archivoId.txt","w");
+
     do
     {
     	option = menu();
@@ -84,60 +84,3 @@ int main()
 
     return 0;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int validarNumero(char *numero)
-{
-    int retorno=1;
-    int len;
-    if(numero!=NULL){
-        len=strlen(numero);
-        for(int i=0;i<len;i++){ //"51"
-            if(!isdigit(numero[i])){
-                retorno=0;
-                break;
-            }
-        }
-    }
-    return retorno;
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int pedirEntero(char *mensaje,char *mensajeError)
-{
-    int retorno;
-    char numero[1000];
-    printf(mensaje);
-    scanf("%s",numero);
-    while(!validarNumero(numero)){
-        printf(mensajeError);
-        printf(mensaje);
-        scanf("%s",numero);
-    }
-    retorno=atoi(numero);
-    return retorno;
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int menu()
-{
-	int opcion;
-
-	  printf("\n=============================================MENU==================================================");
-	opcion = pedirEntero("\n1►Cargar los datos de los pasajeros desde el archivo data.csv (modo texto)"
-			"\n2►Cargar los datos de los pasajeros desde el archivo data.csv (modo binario)"
-			"\n3►Alta de pasajero"
-			"\n4►Modificar datos de pasajero"
-			"\n5►Baja de pasajero"
-			"\n6►Listar pasajeros"
-			"\n7►Ordenar pasajeros"
-			"\n8►Guardar los datos de los pasajeros en el archivo data.csv (modo texto)"
-			"\n9►Guardar los datos de los pasajeros en el archivo data.csv (modo binario)"
-			"\n10►Salir"
-			"\n◉Opcion:","\nಠ╭╮ಠ\nError, opcion no valida\n");
-	  printf("===================================================================================================\n");
-
-	  return opcion;
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

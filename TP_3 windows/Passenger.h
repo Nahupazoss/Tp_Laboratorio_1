@@ -60,4 +60,7 @@ int Passenger_flightCodeStr(char* flyCodeStr);
 int Passenger_statusInt(int status,char* statusStr);
 int Passenger_statusFlightStr(char* statusStr);
 /**************************************************************/
+int Passenger_add(LinkedList* this);
+/**************************************************************/
+int Passenger_modificar(Passenger* auxPassenger);
 #endif /* PASSENGER_H_ */

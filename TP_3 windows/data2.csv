@@ -322,7 +322,7 @@ id,name,lastname,price,flycode,typePassenger,statusFlight
 321,Wilona,Valdes,25000,BA2491A,Aterrizado,EconomyClass
 322,Richard,Vidal,42000,BA2491A,Aterrizado,EconomyClass
 323,Hilary,Salinas,37000,BA2491A,Aterrizado,EconomyClass
-324,,Zuniga,33000,BA2491A,Aterrizado,EconomyClass
+324,’,Zuniga,33000,BA2491A,Aterrizado,EconomyClass
 325,Maynord,Pena,42000,BA2491A,Aterrizado,EconomyClass
 326,Lina,Godoy,12000,TU6789B,Aterrizado,EconomyClass
 327,Nerty,Lagos,20000,TU6789B,Aterrizado,EconomyClass
@@ -999,3 +999,4 @@ id,name,lastname,price,flycode,typePassenger,statusFlight
 998,Jaye,Gutierrez,25000,MM0987B,En Horario,EconomyClass
 999,Tamarra,Navarro,15000,MM0987B,En Horario,EconomyClass
 1000,Saleem,Torres,20000,MM0987B,En Horario,EconomyClass
+1001,Nahuel,Pazos,66666,IB0800A,Aterrizado,FirstClass
