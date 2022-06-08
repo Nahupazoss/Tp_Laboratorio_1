@@ -24,11 +24,11 @@ int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
 		if(pArchivo != NULL)
 		{
 			parser_PassengerFromText(pArchivo, pArrayListPassenger);
-			printf("\nCarga exitosa...\n");
+			printf("\n༼ つ ͡° ͜ʖ ͡° ༽つ\nCarga exitosa...\n");
 		}
 		else
 		{
-			printf("\nError con la carga\n");
+			printf("\nლ(ಠ益ಠლ)\nError con la carga\n");
 		}
 		fclose(pArchivo);
 		retorno = 0;
@@ -53,6 +53,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
 	if(pArrayListPassenger != NULL && path != NULL)
 	{
 		pArchivo = fopen(path,"rb");
+
 		if(pArchivo != NULL)
 		{
 			parser_PassengerFromBinary(pArchivo, pArrayListPassenger);
@@ -84,7 +85,8 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 
 	if(pArrayListPassenger != NULL)
 	{
-		Passenger_add(pArrayListPassenger);
+		//Passenger_add(pArrayListPassenger);
+
 		retorno = 0;
 	}
 
@@ -227,14 +229,15 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 	{
 		pFile = fopen(path,"w");
 
-		parser_PassengerFromText(pFile, pArrayListPassenger);
-
+		if(pFile != NULL)
+		{
+			parser_guardarTexto(pFile, pArrayListPassenger);
+		}
 
 		fclose(pFile);
 
 		retorno = 0;
 	}
-
 
     return retorno;
 }
@@ -251,13 +254,13 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 {
 	int retorno = -1;
-		FILE* pFile;
+	FILE* pFile;
 
 		if(path != NULL && pArrayListPassenger != NULL)
 		{
 			pFile = fopen(path,"wb");
 
-			parser_PassengerFromBinary(pFile, pArrayListPassenger);
+			parser_guardarBinario(pFile, pArrayListPassenger);
 
 			fclose(pFile);
 

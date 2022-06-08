@@ -61,17 +61,18 @@ int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 
 	if(pFile != NULL && pArrayListPassenger != NULL)
 	{
-		while(!feof(pFile))
+		do
 		{
 			aux = Passenger_new();
 
-			fread(aux,sizeof(Passenger),1,pFile);
-
-			if(aux != NULL)
+			if(aux != NULL && fread(aux,sizeof(Passenger),1,pFile) == 1)
 			{
 				ll_add(pArrayListPassenger, aux);
 			}
-		}
+
+		}while(!feof(pFile));
+
+	retorno = 0;
 	}
 
     return retorno;
@@ -83,7 +84,7 @@ int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
  * @param pArrayListPassenger
  * @return
  */
-int parser_cargarTexto(FILE* pFile , LinkedList* pArrayListPassenger)
+int parser_guardarTexto(FILE* pFile , LinkedList* pArrayListPassenger)
 {
 	int retorno = -1;
 	int i;
@@ -97,7 +98,6 @@ int parser_cargarTexto(FILE* pFile , LinkedList* pArrayListPassenger)
 	char auxTypePassenger[20];
 	char auxFlyCode[20];
 	char auxStatusFlight[20];
-
 
 	if(pFile != NULL && pArrayListPassenger != NULL)
 	{
@@ -118,7 +118,7 @@ int parser_cargarTexto(FILE* pFile , LinkedList* pArrayListPassenger)
 				Passenger_TipoPasajeroInt(typePassenger, auxTypePassenger);
 
 				fprintf(pFile,"%d,%s,%s,%.0f,%s,%s,%s\n",auxId,auxNombre,auxApellido
-						,auxPrecio,typePassenger,auxFlyCode,auxStatusFlight,auxTypePassenger);
+						,auxPrecio,auxFlyCode,auxStatusFlight,auxTypePassenger);
 
 				retorno = 0;
 			}
@@ -134,13 +134,26 @@ int parser_cargarTexto(FILE* pFile , LinkedList* pArrayListPassenger)
  * @param pArrayListPassenger
  * @return
  */
-int parser_cargarBinario(FILE* pFile , LinkedList* pArrayListPassenger)
+int parser_guardarBinario(FILE* pFile , LinkedList* pArrayListPassenger)
 {
 	int retorno = -1;
+	int i;
+	int tam = ll_len(pArrayListPassenger);
+	Passenger* aux;
 
 	if(pFile != NULL && pArrayListPassenger != NULL)
 	{
+		for(i=0;i<tam;i++)
+		{
+			aux = (Passenger*)ll_get(pArrayListPassenger, i);
 
+			if(aux != NULL)
+			{
+				fwrite(aux,sizeof(Passenger),1,pFile);
+			}
+		}
+
+		retorno = 0;
 	}
 
 	return retorno;

@@ -40,7 +40,7 @@ int main()
                 controller_loadFromText("data.csv",listaPasajeros);
             break;
             case 2://cargar datos bn
-            	controller_loadFromBinary("data.bin", listaPasajeros);
+            	controller_loadFromBinary("data2.bin", listaPasajeros);
             break;
 
             case 3://alta
@@ -124,17 +124,17 @@ int menu()
 	int opcion;
 
 	  printf("\n=============================================MENU==================================================");
-	opcion = pedirEntero("\n1〉〉Cargar los datos de los pasajeros desde el archivo data.csv (modo texto)"
-			"\n2〉〉Cargar los datos de los pasajeros desde el archivo data.csv (modo binario)"
-			"\n3〉〉Alta de pasajero"
-			"\n4〉〉Modificar datos de pasajero"
-			"\n5〉〉Baja de pasajero"
-			"\n6〉〉Listar pasajeros"
-			"\n7〉〉Ordenar pasajeros"
-			"\n8〉Guardar los datos de los pasajeros en el archivo data.csv (modo texto)"
-			"\n9〉〉Guardar los datos de los pasajeros en el archivo data.csv (modo binario)"
-			"\n10〉〉Salir"
-			"\n◉Opcion:","\nError, opcion no valida\n");
+	opcion = pedirEntero("\n1►Cargar los datos de los pasajeros desde el archivo data.csv (modo texto)"
+			"\n2►Cargar los datos de los pasajeros desde el archivo data.csv (modo binario)"
+			"\n3►Alta de pasajero"
+			"\n4►Modificar datos de pasajero"
+			"\n5►Baja de pasajero"
+			"\n6►Listar pasajeros"
+			"\n7►Ordenar pasajeros"
+			"\n8►Guardar los datos de los pasajeros en el archivo data.csv (modo texto)"
+			"\n9►Guardar los datos de los pasajeros en el archivo data.csv (modo binario)"
+			"\n10►Salir"
+			"\n◉Opcion:","\nಠ╭╮ಠ\nError, opcion no valida\n");
 	  printf("===================================================================================================\n");
 
 	  return opcion;

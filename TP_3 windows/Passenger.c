@@ -533,6 +533,13 @@ int Passenger_statusInt(int status,char* statusStr)
 	return retorno;
 }
 /***************************************************************************************/
+int Passenger_priceStr()
+{
+	int retorno = -1;
+
+
+	return retorno;
+}
 /***************************************************************************************/
 /***************************************************************************************/
 int Passenger_add(LinkedList* onePassenger)
@@ -550,33 +557,29 @@ int Passenger_add(LinkedList* onePassenger)
 	char auxStatusFlight[20];
 	Passenger* aux = NULL;
 
-
-
 	if(onePassenger != NULL)
 	{
 		aux = Passenger_new();
 
 		if(aux != NULL)
 		{
-			if(!(utn_getNombre(auxNombre, 50, "\nIngrese su nombre:", "\nError,reingrese su nombre:(no se aceptan numeros ni simbolos)", 3))&&
-			   !(utn_getNombre(auxApellido, 50, "\nIngrese su apellido:", "\nError,reingrese su apellido:(no se aceptan numeros ni simbolos)", 3))&&
-			   !(utn_getNumeroFlotante(&auxPrecio,"\nIngrese su precio:", "\nError,reingrese su precio:(solo numeros)", 1, 1000000, 3))&&
-			   !(utn_getNumero(&typePassenger, "\nIngrese su typePassenger:", "\nError,reingrese su typePassenger:(1-2-3)", 1, 3, 3))&&
-			   !(utn_getNumero(&flyCode, "\nIngrese su flyCode:", "\nError,reingrese su flyCode:(1-2-3-4-5-6-7-8-9)", 1, 9, 3))&&
-			   !(utn_getNumero(&statusFlight, "\nIngrese su statusFlight:", "\nError,reingrese su status:(1-2-3-)", 1, 3, 3)))
+			//isdigit
+			if(!(utn_getNombre(auxNombre, 50, "\n◉Ingrese su nombre:", "\nError,reingrese su nombre:(no se aceptan numeros ni simbolos)", 3))&&
+			   !(utn_getNombre(auxApellido, 50, "\n◉Ingrese su apellido:", "\nError,reingrese su apellido:(no se aceptan numeros ni simbolos)", 3))&&
+			   !(utn_getNumeroFlotante(&auxPrecio,"\n◉Ingrese su precio:", "\nError,reingrese su precio:(solo numeros)", 1, 1000000, 3))&&
+			   !(utn_getNumero(&typePassenger, "\n◉Ingrese su typePassenger:", "\nError,reingrese su typePassenger:(1-2-3)", 1, 3, 3))&&
+			   !(utn_getNumero(&flyCode, "\n◉Ingrese su flyCode:", "\nError,reingrese su flyCode:(1-2-3-4-5-6-7-8-9)", 1, 9, 3))&&
+			   !(utn_getNumero(&statusFlight, "\n◉Ingrese su statusFlight:", "\nError,reingrese su status:(1-2-3-)", 1, 3, 3)))
 			{
 				Passenger_TipoPasajeroInt(typePassenger, auxTypePassenger);
 				Passenger_flightCodeInt(flyCode,auxFlyCode);
 				Passenger_statusInt(statusFlight, auxStatusFlight);
+
 				auxId++;
 				ll_add(onePassenger, aux);
 			}
 		}
 	}
-
-
-
-
 
 	return retorno;
 }
