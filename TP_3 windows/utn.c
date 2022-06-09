@@ -516,7 +516,7 @@ int menu_modificar()
 {
 	int opcion;
 	 printf("\n=============================================MODIFICAR=============================================");
-		opcion = pedirEntero("\n1►Modificar nombre)"
+		opcion = pedirEntero("\n1►Modificar nombre"
 				"\n2►Modificar apellido"
 				"\n3►Modificar precio"
 				"\n4►Modificar status flight"
@@ -533,11 +533,36 @@ int menu_ordenar()
 {
 	int opcion;
 	 printf("\n=============================================ORDENAR===============================================");
-		opcion = pedirEntero("\n1►Ordenas por nombre)"
+		opcion = pedirEntero("\n1►Ordenar por nombre"
 				"\n2►Ordenar por apellido"
-				"\n3►Ordenar por status"
-				"\n4►Salir"
+				"\n3►Ordenar por ID"
+				"\n4►Ordenar por status flight"
+				"\n5►Salir"
 				"\n◉Opcion:","\nಠ╭╮ಠ\nError, opcion no valida\n");
 		  printf("===================================================================================================\n");
 	return opcion;
+}
+//////////////////////////////////////////////////////////////////////////////////////
+void mensajeAviso()
+{
+	printf("\n◉Ordenando a los pasajeros por su status flight\n");
+	printf("\n◉Cargando......\n◉(esto puede demorar unos segundos)\n");
+}
+//////////////////////////////////////////////////////////////////////////////////////
+void mensajeAviso2()
+{
+	printf("\n◉Ordenando a los pasajeros por ID del mas chico al mas grande\n");
+	printf("\n◉Cargando......\n◉(esto puede demorar unos segundos)\n");
+}
+//////////////////////////////////////////////////////////////////////////////////////
+void mensajeAviso3()
+{
+	printf("\n◉Ordenando a los pasajeros por apellido de la A a la Z\n");
+	printf("\n◉Cargando......\n◉(esto puede demorar unos segundos)\n");
+}
+//////////////////////////////////////////////////////////////////////////////////////
+void mensajeAviso4()
+{
+	printf("\n◉Ordenando a los pasajeros por nombre de la A a la Z\n");
+	printf("\n◉Cargando......\n◉(esto puede demorar unos segundos)\n");
 }

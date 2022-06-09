@@ -7,7 +7,7 @@
 //todo lo relaciona al pasajero
 #ifndef PASSENGER_H_
 #define PASSENGER_H_
-
+/********************************************/
 typedef struct
 {
 	int id;
@@ -18,7 +18,6 @@ typedef struct
 	char statusFlight[20];
 	char codigoVuelo[7];
 }Passenger;
-
 /**************************************************************/
 Passenger* Passenger_new();
 /**************************************************************/
@@ -65,4 +64,13 @@ int Passenger_add(LinkedList* this);
 int Passenger_modificar(Passenger* auxPassenger);
 /**************************************************************/
 int Passenger_encontrarPorId(LinkedList* pArrayListPassenger, int buscadorId);
+/**************************************************************/
+int Passenger_OrdenaNombre(void* pPassengerUno , void* pPassengerDos);
+/**************************************************************/
+int Passenger_OrdenaApellido(void* pPassengerUno , void* pPassengerDos);
+/**************************************************************/
+int Passenger_OrdenaId(void* pPassengerUno , void* pPassengerDos);
+/**************************************************************/
+int Passenger_OrdenarStatus(void* pPassengerUno, void* pPassengerDos);
+/********************************************/
 #endif /* PASSENGER_H_ */

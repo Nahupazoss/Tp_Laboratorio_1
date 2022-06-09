@@ -114,13 +114,15 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 	{
 		controller_ListPassenger(pArrayListPassenger);
 
-		utn_getNumero(&buscadorId, "◉Ingrese el ID a modificar:", "◉Error,reingrese el ID a modificar", 1, 2000, 3);
+		utn_getNumero(&buscadorId, "\n◉Ingrese el ID a modificar:", "\n◉Error,reingrese un ID valido", 1, 2000, 3);
 
 		index = Passenger_encontrarPorId(pArrayListPassenger, buscadorId);
 
 		if(index != -1)
 		{
 			auxPassenger = (Passenger*)ll_get(pArrayListPassenger, index);
+
+			printf("%d %s %s %.0f %s %s %d",auxPassenger->id,auxPassenger->nombre,auxPassenger->apellido,auxPassenger->precio,auxPassenger->statusFlight,auxPassenger->codigoVuelo,auxPassenger->tipoPasajero);
 
 			Passenger_modificar(auxPassenger);
 
@@ -151,7 +153,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 	if(pArrayListPassenger != NULL)
 	{
 		controller_ListPassenger(pArrayListPassenger);
-		utn_getNumero(&buscadorId, "\n◉Ingrese el ID del passenger a eliminar:", "\n◉Error,reigrese el ID del passenger a eliminar\n", 1, 2000, 3);
+		utn_getNumero(&buscadorId, "\n◉Ingrese el ID del passenger a eliminar:", "\n◉Error,reigrese un ID valido\n", 1, 2000, 3);
 		index = Passenger_encontrarPorId(pArrayListPassenger, buscadorId);
 
 		if(index != -1)
@@ -191,7 +193,7 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
 	if(pArrayListPassenger != NULL)
 	{
 		printf("\n===========================================Passenger list==========================================\n");
-		printf("ID\tNAME\t        LAST NAME\tPRICE\t   TYPE PASSENGER     FLIGTH CODE   STATUS FLIGHT\n");
+		printf("ID\tNAME\t        LAST NAME\tPRICE\t   TYPE PASSENGER       FLIGTH CODE   STATUS FLIGHT\n");
 		printf("===================================================================================================\n");
 		for(i=0;i<tam;i++)
 		{
@@ -229,16 +231,28 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
 		switch(opcion)
 		{
 		case 1:
-
+			mensajeAviso4();
+			ll_sort(pArrayListPassenger,Passenger_OrdenaNombre,1);
+			printf("\n◉Para ver los cambios listar los pasajeros (Opcion 6 del menu principal)\n");
 		break;
 		case 2:
-
+			mensajeAviso3();
+			ll_sort(pArrayListPassenger, Passenger_OrdenaApellido, 1);
+			printf("\n◉Para ver los cambios listar los pasajeros (Opcion 6 del menu principal)\n");
 		break;
 		case 3:
-
+			mensajeAviso2();
+			ll_sort(pArrayListPassenger, Passenger_OrdenaId, 1);
+			printf("\n◉Para ver los cambios listar los pasajeros (Opcion 6 del menu principal)\n");
 		break;
 		case 4:
+			mensajeAviso();
+			ll_sort(pArrayListPassenger, Passenger_OrdenarStatus, 1);
+			printf("\n◉Para ver los cambios listar los pasajeros (Opcion 6 del menu principal)\n");
+		break;
+		case 5:
 			printf("\n◉Saliendo del menu de ordenamiento...\n");
+			printf("\n◉Redirigiendo al menu principal..\n");
 		break;
 		default:
 			printf("\n◉Opcion incorrecta...\n");
@@ -246,14 +260,12 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
 
 		}
 
-	}while(opcion != 4);
+	}while(opcion != 5);
 
 
     return retorno;
 }
-
 //////////////////////////////////////////////////////////////////////////////////////
-
 /** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo texto).
  *
  * \param path char*
@@ -283,7 +295,6 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
     return retorno;
 }
 //////////////////////////////////////////////////////////////////////////////////////
-
 /** \brief Guarda los datos de los pasajeros en el archivo data.csv (modo binario).
  *
  * \param path char*

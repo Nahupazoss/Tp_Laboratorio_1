@@ -24,6 +24,7 @@ int main()
 {
 	setbuf(stdout,NULL);
     int option = 0;
+    int flag = 0;
     //FILE* pArchivoId;
 
     LinkedList* listaPasajeros = ll_newLinkedList();
@@ -38,43 +39,65 @@ int main()
         {
             case 1://cargar datos txt
                 controller_loadFromText("data.csv",listaPasajeros);
+                flag = 1;
             break;
             case 2://cargar datos bn
             	controller_loadFromBinary("data2.bin", listaPasajeros);
+            	flag = 1;
             break;
-
             case 3://alta
             	controller_addPassenger(listaPasajeros);
+            	flag = 1;
             break;
-
             case 4://modificar
-            	controller_editPassenger(listaPasajeros);
+            	if(flag == 1)
+            	{
+            		controller_editPassenger(listaPasajeros);
+            	}
+            	else
+            	{
+            		printf("\nPrimero cargar o dar de alta algun pasajero..\n\nRedirigiendo al menu principal...\n");
+            	}
             break;
-
             case 5://baja
-            	controller_removePassenger(listaPasajeros);
+            	if(flag == 1)
+				{
+            		controller_removePassenger(listaPasajeros);
+				}
+            	else
+            	{
+            		printf("\nPrimero cargar o dar de alta algun pasajero..\n\nRedirigiendo al menu principal...\n");
+            	}
             break;
-
             case 6://list passenger
-            	controller_ListPassenger(listaPasajeros);
+            	if(flag == 1)
+            	{
+            		controller_ListPassenger(listaPasajeros);
+            	}
+               	else
+               	{
+               		printf("\nPrimero cargar o dar de alta algun pasajero..\n\nRedirigiendo al menu principal...\n");
+               	}
             break;
-
             case 7://ordenar pasajeros
-            	controller_sortPassenger(listaPasajeros);
+            	if(flag == 1)
+            	{
+                	controller_sortPassenger(listaPasajeros);
+            	}
+            	else
+            	{
+            		printf("\nPrimero cargar o dar de alta algun pasajero..\n\nRedirigiendo al menu principal...\n");
+            	}
             break;
-
             case 8://guardar los datos txt
             	controller_saveAsText("data2.csv", listaPasajeros);
             break;
-
             case 9://guardar los datos bn
             	controller_saveAsBinary("data2.bin", listaPasajeros);
             break;
-
             case 10:
             	printf("\nLeft seccsfull....\n");
             break;
-
             default:
             	printf("\nWrong option....\n");
             break;

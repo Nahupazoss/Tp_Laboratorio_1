@@ -286,7 +286,7 @@ void Passenger_mostrar(Passenger* onePassenger)
 
 	if(onePassenger != NULL)
 	{
-		printf("%4d\t%-15s\t%-15s\t%2.f\t%15s\t%15s\t%15s\n",auxId,auxNombre,auxApellido,auxPrecio,
+		printf("%4d\t%-15s\t%-15s\t$%2.f\t   %-15s  %15s\t%-15s\n",auxId,auxNombre,auxApellido,auxPrecio,
 				auxTypePassenger,auxFlyCode,auxStatusFlight);
 
 	}
@@ -636,12 +636,15 @@ int Passenger_modificar(Passenger* auxPassenger)
 			case 6:
 				utn_getNumero(&auxPassenger->tipoPasajero, "\n1►FirstClass\n2►ExecutiveClass\n3►EconomyClass"
 				"\n◉Ingrese su nuevo type passenger:", "\n◉Error,reingrese su type passenger:", 1, 3, 3);
-
 				printf("\n◉Su cambio se ha realizado exitosamente\n");
 			break;
 			case 7:
-				printf("\n◉Has left..\n");
+				printf("\n◉Saliendo del menu modificar..\n");
+				printf("\n◉Redirigiendo al menu principal..\n");
 			break;
+			default:
+				printf("\nOpcion incorrecta..\n");
+			break;//
 			}
 
 		}while(opcion != 7);
@@ -652,5 +655,110 @@ int Passenger_modificar(Passenger* auxPassenger)
 	return retorno;
 }
 /***************************************************************************************/
+int Passenger_OrdenaNombre(void* pPassengerUno , void* pPassengerDos)
+{
+	int retorno = -1;
+	char nombrePassengerUno[30];
+	char nombrePassengerDos[30];
+	Passenger* passengerUno = NULL;
+	Passenger* passengerDos = NULL;
 
+	if(pPassengerUno != NULL && pPassengerDos != NULL)
+	{
+		passengerUno = (Passenger*)pPassengerUno;
+		passengerDos =  (Passenger*)pPassengerDos;
+
+		if(passengerUno != NULL && passengerDos != NULL)
+		{
+			Passenger_getNombre(passengerUno, nombrePassengerUno);
+			Passenger_getNombre(pPassengerDos, nombrePassengerDos);
+			retorno = strcmp(nombrePassengerUno,nombrePassengerDos);
+		}
+	}
+
+	return retorno;
+}
+/***************************************************************************************/
+int Passenger_OrdenaApellido(void* pPassengerUno , void* pPassengerDos)
+{
+	int retorno = -1;
+	char apellidoPassengerUno[30];
+	char apellidoPassengerDos[30];
+	Passenger* passengerUno = NULL;
+	Passenger* passengerDos = NULL;
+
+	if(pPassengerUno != NULL && pPassengerDos != NULL)
+	{
+		passengerUno = (Passenger*)pPassengerUno;
+		passengerDos =  (Passenger*)pPassengerDos;
+
+		if(passengerUno != NULL && passengerDos != NULL)
+		{
+			Passenger_getApellido(passengerUno, apellidoPassengerUno);
+			Passenger_getApellido(passengerDos, apellidoPassengerDos);
+			retorno = strcmp(apellidoPassengerUno,apellidoPassengerDos);
+		}
+	}
+
+	return retorno;
+}
+/***************************************************************************************/
+int Passenger_OrdenaId(void* pPassengerUno , void* pPassengerDos)
+{
+	int retorno = -1;
+	int primerId;
+	int segundoId;
+	Passenger* passengerUno = NULL;
+	Passenger* passengerDos = NULL;
+
+	if(pPassengerUno != NULL && pPassengerDos != NULL)
+	{
+		passengerUno = (Passenger*)pPassengerUno;
+		passengerDos =  (Passenger*)pPassengerDos;
+
+		if(passengerUno != NULL && passengerDos != NULL)
+		{
+			Passenger_getId(passengerUno, &primerId);
+			Passenger_getId(passengerDos, &segundoId);
+
+			if(primerId > segundoId)
+			{
+				retorno = 1;
+			}
+			else
+			{
+				if(primerId == segundoId)
+				{
+					retorno = 0;
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+/***************************************************************************************/
+int Passenger_OrdenarStatus(void* pPassengerUno, void* pPassengerDos)
+{
+	int retorno = -1;
+	Passenger* passengerUno = NULL;
+	Passenger* passengerDos = NULL;
+	char statusUno[20];
+	char statusDos[20];
+
+	if(pPassengerUno != NULL && pPassengerDos != NULL)
+	{
+		passengerUno = (Passenger*)pPassengerUno;
+		passengerDos =  (Passenger*)pPassengerDos;
+
+		if(passengerUno != NULL && passengerDos != NULL)
+		{
+			Passenger_getStatusFlight(passengerUno, statusUno);
+			Passenger_getStatusFlight(passengerDos, statusDos);
+			retorno = strcmp(statusUno,statusDos);
+		}
+	}
+
+	return retorno;
+}
 /***************************************************************************************/
