@@ -24,5 +24,6 @@ int validarNumero(char *numero);
 int pedirEntero(char *mensaje,char *mensajeError);
 int menu();
 int menu_modificar();
+int menu_ordenar();
 
 #endif /* UTN_H_ */

@@ -116,7 +116,7 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 
 		utn_getNumero(&buscadorId, "◉Ingrese el ID a modificar:", "◉Error,reingrese el ID a modificar", 1, 2000, 3);
 
-		index = encontrarPassengerPorId(pArrayListPassenger,buscadorId);
+		index = Passenger_encontrarPorId(pArrayListPassenger, buscadorId);
 
 		if(index != -1)
 		{
@@ -132,26 +132,7 @@ int controller_editPassenger(LinkedList* pArrayListPassenger)
 //////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////
-int encontrarPassengerPorId(LinkedList* pArrayListPassenger, int buscadorId)
-{
-	int tam;
-	int retorno=-1;
-	Passenger* auxPassenger = NULL;
-	if(pArrayListPassenger!=NULL)
-	{
-		tam = ll_len(pArrayListPassenger);
-		for(int i=0;i<tam;i++)
-		{
-			auxPassenger = (Passenger*)ll_get(pArrayListPassenger, i);
 
-			if(auxPassenger->id == buscadorId)
-			{
-				retorno = ll_indexOf(pArrayListPassenger, auxPassenger);
-			}
-		}
-	}
-	return retorno;
-}
  //////////////////////////////////////////////////////////////////////////////////////
 /** \brief Baja de pasajero
  *
@@ -171,7 +152,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 	{
 		controller_ListPassenger(pArrayListPassenger);
 		utn_getNumero(&buscadorId, "\n◉Ingrese el ID del passenger a eliminar:", "\n◉Error,reigrese el ID del passenger a eliminar\n", 1, 2000, 3);
-		index = encontrarPassengerPorId(pArrayListPassenger, buscadorId);
+		index = Passenger_encontrarPorId(pArrayListPassenger, buscadorId);
 
 		if(index != -1)
 		{
@@ -192,6 +173,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
 }
 //////////////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////////////////////////////
 /** \brief Listar pasajeros
  *
  * \param path char*
@@ -237,7 +219,37 @@ int controller_ListPassenger(LinkedList* pArrayListPassenger)
  */
 int controller_sortPassenger(LinkedList* pArrayListPassenger)
 {
-    return 1;
+	int retorno = -1;
+	int opcion;
+
+	do
+	{
+		opcion = menu_ordenar();
+
+		switch(opcion)
+		{
+		case 1:
+
+		break;
+		case 2:
+
+		break;
+		case 3:
+
+		break;
+		case 4:
+			printf("\n◉Saliendo del menu de ordenamiento...\n");
+		break;
+		default:
+			printf("\n◉Opcion incorrecta...\n");
+		break;
+
+		}
+
+	}while(opcion != 4);
+
+
+    return retorno;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

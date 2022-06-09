@@ -60,7 +60,7 @@ int main()
             break;
 
             case 7://ordenar pasajeros
-
+            	controller_sortPassenger(listaPasajeros);
             break;
 
             case 8://guardar los datos txt

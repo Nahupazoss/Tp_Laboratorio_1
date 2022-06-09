@@ -63,4 +63,6 @@ int Passenger_statusFlightStr(char* statusStr);
 int Passenger_add(LinkedList* this);
 /**************************************************************/
 int Passenger_modificar(Passenger* auxPassenger);
+/**************************************************************/
+int Passenger_encontrarPorId(LinkedList* pArrayListPassenger, int buscadorId);
 #endif /* PASSENGER_H_ */

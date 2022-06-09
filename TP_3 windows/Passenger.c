@@ -416,13 +416,6 @@ int Passenger_flightCodeStr(char* flyCodeStr)
 									{
 										retorno = 8;
 									}
-									else
-									{
-										if(strcmp(flyCodeStr,"HY4567D")== 0)
-										{
-											retorno = 9;
-										}
-									}
 								}
 							}
 						}
@@ -494,9 +487,6 @@ int Passenger_flightCodeInt(int flightCode,char* flightcodeStr)
 		case 8:
 			strcpy(flightcodeStr,"TU6789B");
 		break;
-		case 9:
-			strcpy(flightcodeStr,"HY4567D");
-		break;
 		default:
 			printf("error");
 		break;
@@ -533,6 +523,26 @@ int Passenger_statusInt(int status,char* statusStr)
 	return retorno;
 }
 /***************************************************************************************/
+int Passenger_encontrarPorId(LinkedList* pArrayListPassenger, int buscadorId)
+{
+	int tam;
+	int retorno=-1;
+	Passenger* auxPassenger = NULL;
+	if(pArrayListPassenger!=NULL)
+	{
+		tam = ll_len(pArrayListPassenger);
+		for(int i=0;i<tam;i++)
+		{
+			auxPassenger = (Passenger*)ll_get(pArrayListPassenger, i);
+
+			if(auxPassenger->id == buscadorId)
+			{
+				retorno = ll_indexOf(pArrayListPassenger, auxPassenger);
+			}
+		}
+	}
+	return retorno;
+}
 /***************************************************************************************/
 /***************************************************************************************/
 int Passenger_add(LinkedList* this)
@@ -556,9 +566,10 @@ int Passenger_add(LinkedList* this)
 			if(!(utn_getNombre(auxNombre, 50, "\n◉Ingrese su nombre:", "\n◉Error,reingrese su nombre:(no se aceptan numeros ni simbolos)", 3))&&
 			   !(utn_getNombre(auxApellido, 50, "\n◉Ingrese su apellido:", "\n◉Error,reingrese su apellido:(no se aceptan numeros ni simbolos)", 3))&&
 			   !(utn_getDni(auxPrecio, 10, "\n◉Ingrese su precio:", "\n◉Error,reingrese su precio", 3))&&
-			   !(utn_getNumero(&typePassenger, "\n◉Ingrese su typePassenger:", "\n◉Error,reingrese su typePassenger:(1-2-3)", 1, 3, 3))&&
-			   !(utn_getNumero(&flyCode, "\n◉Ingrese su flyCode:", "\n◉Error,reingrese su flyCode:(1-2-3-4-5-6-7-8-9)", 1, 9, 3))&&
-			   !(utn_getNumero(&statusFlight, "\n◉Ingrese su statusFlight:", "\n◉Error,reingrese su status:(1-2-3-)", 1, 3, 3)))
+			   !(utn_getNumero(&typePassenger, "\n1►FirstClass\n2►ExecutiveClass\n3►EconomyClass\n◉Ingrese su typePassenger:", "\n◉Error,reingrese su typePassenger:(1-2-3)", 1, 3, 3))&&
+			   !(utn_getNumero(&flyCode, "\n1►IB0800A\n2►MM0987B\n3►BA2491A\n4►BR3456J"
+				"\n5►FR5678G\n6►HY4567D\n7►GU2345F\n8►TU6789B\n◉Ingrese su flyCode:", "\n◉Error,reingrese su flyCode:(1-2-3-4-5-6-7-8)", 1, 8, 3))&&
+			   !(utn_getNumero(&statusFlight, "\n1►Aterrizado\n2►En Horario\n3►Demorado\n4►En Vuelo\n◉Ingrese su statusFlight:", "\n◉Error,reingrese su status:(1-2-3-)", 1, 4, 3)))
 			{
 				Passenger_TipoPasajeroInt(typePassenger, auxTypePassenger);
 				Passenger_flightCodeInt(flyCode,auxFlyCode);
@@ -612,13 +623,13 @@ int Passenger_modificar(Passenger* auxPassenger)
 			break;
 			case 4:
 				utn_getNumero(&auxStatus,  "\n1►Aterrizado\n2►En Horario\n3►Demorado\n4►En Vuelo"
-				"\n◉Ingrese su nuevo status:", "\n◉Error,reingrese su status", 1, 9, 3);
+				"\n◉Ingrese su nuevo status:", "\n◉Error,reingrese su status", 1,4, 3);
 				Passenger_statusInt(auxStatus, auxPassenger->statusFlight);
 				printf("\nSu cambio se ha realizado exitosamente\n");
 			break;
 			case 5:
 				utn_getNumero(&auxFlyCode, "\n1►IB0800A\n2►MM0987B\n3►BA2491A\n4►BR3456J"
-				"\n5►FR5678G\n6►HY4567D\n7►GU2345F\n8►TU6789B\n9►HY4567D\n◉Ingrese su nuevo fly code:", "\n◉Error,reingrese su fly code""", 1, 9, 3);
+				"\n5►FR5678G\n6►HY4567D\n7►GU2345F\n8►TU6789B\n◉Ingrese su nuevo fly code:", "\n◉Error,reingrese su fly code""", 1, 8, 3);
 				Passenger_flightCodeInt(auxFlyCode,auxPassenger->codigoVuelo);
 				printf("\nSu cambio se ha realizado exitosamente\n");
 			break;
