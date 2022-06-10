@@ -26,9 +26,7 @@ int main()
     int option = 0;
     int flag = 0;
     //FILE* pArchivoId;
-
     LinkedList* listaPasajeros = ll_newLinkedList();
-
     //pArchivoId = fopen("archivoId.txt","w");
 
     do
@@ -38,19 +36,38 @@ int main()
         switch(option)
         {
             case 1://cargar datos txt
-                controller_loadFromText("data.csv",listaPasajeros);
-                flag = 1;
+            	if(flag == 0)
+            	{
+            		controller_loadFromText("data.csv",listaPasajeros);
+            		flag = 1;
+            	}
+            	else
+            	{
+            		if(flag == 1)
+            		{
+            			printf("\nYa se realizo una carga de pasajeros...\n\nRedirigiendo al menu principal\n");
+            		}
+            	}
             break;
             case 2://cargar datos bn
-            	controller_loadFromBinary("data2.bin", listaPasajeros);
-            	flag = 1;
+            	if(flag == 0)
+            	{
+            		controller_loadFromBinary("data2.bin", listaPasajeros);
+            	    flag = 1;
+            	}
+            	else
+            	{
+            		if(flag == 1)
+            		{
+            			printf("\nYa se realizo una carga de pasajeros...\n\nRedirigiendo al menu principal\n");
+            		}
+            	}
             break;
             case 3://alta
             	controller_addPassenger(listaPasajeros);
-            	flag = 1;
             break;
             case 4://modificar
-            	if(flag == 1)
+            	if(ll_isEmpty(listaPasajeros) == 0)
             	{
             		controller_editPassenger(listaPasajeros);
             	}
@@ -60,7 +77,7 @@ int main()
             	}
             break;
             case 5://baja
-            	if(flag == 1)
+            	if(ll_isEmpty(listaPasajeros) == 0)
 				{
             		controller_removePassenger(listaPasajeros);
 				}
@@ -70,7 +87,7 @@ int main()
             	}
             break;
             case 6://list passenger
-            	if(flag == 1)
+            	if(ll_isEmpty(listaPasajeros) == 0)
             	{
             		controller_ListPassenger(listaPasajeros);
             	}
