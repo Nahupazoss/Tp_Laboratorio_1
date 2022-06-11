@@ -73,4 +73,5 @@ int Passenger_OrdenaId(void* pPassengerUno , void* pPassengerDos);
 /**************************************************************/
 int Passenger_OrdenarStatus(void* pPassengerUno, void* pPassengerDos);
 /********************************************/
+void Passenger_leerId(char* auxId);
 #endif /* PASSENGER_H_ */

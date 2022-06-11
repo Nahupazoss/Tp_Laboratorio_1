@@ -544,11 +544,39 @@ int Passenger_encontrarPorId(LinkedList* pArrayListPassenger, int buscadorId)
 	return retorno;
 }
 /***************************************************************************************/
+void Passenger_leerId(char* auxId)
+{
+	FILE* pArchivoId = NULL;
+
+	char idchar[20];
+	int id;
+
+	pArchivoId = fopen("archivoId.txt","r");
+
+	if(pArchivoId != NULL)
+	{
+		fscanf(pArchivoId,"%[^\n]",idchar);
+
+		strcpy(auxId,idchar);
+
+		id = atoi(idchar);
+
+		id++;
+
+		fclose(pArchivoId);
+
+		pArchivoId = fopen("archivoId.txt","w");
+
+		fprintf(pArchivoId,"%d\n",id);
+
+		fclose(pArchivoId);
+	}
+}
 /***************************************************************************************/
 int Passenger_add(LinkedList* this)
 {
 	int retorno = -1;
-	char auxId[10] = "1001";
+	char auxId[10];
 	char auxNombre[50];
 	char auxApellido[50];
 	char auxPrecio[10];
@@ -559,7 +587,6 @@ int Passenger_add(LinkedList* this)
 	int statusFlight;
 	char auxStatusFlight[20];
 	Passenger* aux = NULL;
-	//FILE* auxid;
 
 	if(this != NULL)
 	{
@@ -574,6 +601,8 @@ int Passenger_add(LinkedList* this)
 				Passenger_TipoPasajeroInt(typePassenger, auxTypePassenger);
 				Passenger_flightCodeInt(flyCode,auxFlyCode);
 				Passenger_statusInt(statusFlight, auxStatusFlight);
+
+				Passenger_leerId(auxId);
 
 				aux = Passenger_newParametros(auxId, auxNombre, auxApellido, auxPrecio, auxTypePassenger, auxStatusFlight, auxFlyCode);
 
@@ -613,25 +642,23 @@ int Passenger_modificar(Passenger* auxPassenger)
 			case 2:
 				utn_getNombre(auxPassenger->apellido, 20, "\n◉Ingrese su nuevo apellido:",
 				"\n◉Error,reingrese su apellido:(no se aceptan numeros ni simbolos)", 3);
-
-				printf("\nSu cambio se ha realizado exitosamente\n");
+				printf("\n◉Su cambio se ha realizado exitosamente\n");
 			break;
 			case 3:
 				utn_getNumeroFlotante(&auxPassenger->precio, "\n◉Ingrese su nuevo precio:", "\n◉Error,reingrese su precio", 1, 10000, 3);
-
-				printf("\nSu cambio se ha realizado exitosamente\n");
+				printf("\n◉Su cambio se ha realizado exitosamente\n");
 			break;
 			case 4:
 				utn_getNumero(&auxStatus,  "\n1►Aterrizado\n2►En Horario\n3►Demorado\n4►En Vuelo"
 				"\n◉Ingrese su nuevo status:", "\n◉Error,reingrese su status", 1,4, 3);
 				Passenger_statusInt(auxStatus, auxPassenger->statusFlight);
-				printf("\nSu cambio se ha realizado exitosamente\n");
+				printf("\n◉Su cambio se ha realizado exitosamente\n");
 			break;
 			case 5:
 				utn_getNumero(&auxFlyCode, "\n1►IB0800A\n2►MM0987B\n3►BA2491A\n4►BR3456J"
 				"\n5►FR5678G\n6►HY4567D\n7►GU2345F\n8►TU6789B\n◉Ingrese su nuevo fly code:", "\n◉Error,reingrese su fly code""", 1, 8, 3);
 				Passenger_flightCodeInt(auxFlyCode,auxPassenger->codigoVuelo);
-				printf("\nSu cambio se ha realizado exitosamente\n");
+				printf("\n◉Su cambio se ha realizado exitosamente\n");
 			break;
 			case 6:
 				utn_getNumero(&auxPassenger->tipoPasajero, "\n1►FirstClass\n2►ExecutiveClass\n3►EconomyClass"
@@ -643,7 +670,7 @@ int Passenger_modificar(Passenger* auxPassenger)
 				printf("\n◉Redirigiendo al menu principal..\n");
 			break;
 			default:
-				printf("\nOpcion incorrecta..\n");
+				printf("\n◉Opcion incorrecta..\n");
 			break;//
 			}
 

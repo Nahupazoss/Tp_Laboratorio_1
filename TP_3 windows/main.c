@@ -20,14 +20,19 @@
      9. Guardar los datos de los pasajeros en el archivo data.csv (modo binario).
     10. Salir
 *****************************************************/
+/****************************************************
+ * NAHUEL RODRIGO PAZOS DIV 1K TP 3 TERMINADO
+*****************************************************/
 int main()
 {
 	setbuf(stdout,NULL);
     int option = 0;
     int flag = 0;
-    //FILE* pArchivoId;
+    int flagGuardadoTxt = 0;
+    int flagGuardadoBn = 0;
+    int controlador;
+
     LinkedList* listaPasajeros = ll_newLinkedList();
-    //pArchivoId = fopen("archivoId.txt","w");
 
     do
     {
@@ -64,12 +69,29 @@ int main()
             	}
             break;
             case 3://alta
-            	controller_addPassenger(listaPasajeros);
+            	controlador = controller_addPassenger(listaPasajeros);
+            	if(controlador == 0)
+            	{
+            		printf("\nEl pasajero se ha agregado exitosamente\n");
+            	}
+            	else
+            	{
+            		printf("\nNo se ha podido agregar al pasajero\n\nPorfavor,reintente o verifique que la lista no este llena\n");
+            	}
             break;
             case 4://modificar
             	if(ll_isEmpty(listaPasajeros) == 0)
             	{
-            		controller_editPassenger(listaPasajeros);
+            		controlador = controller_editPassenger(listaPasajeros);
+
+            		if(controlador == 0)
+            		{
+            			printf("\nEl pasajero se ha modificado exitosamente\n");
+            		}
+            		else
+            		{
+            			printf("\nEl pasajero no se ha  podido modificar..\n\nPorfavor reintente..\n");
+            		}
             	}
             	else
             	{
@@ -97,7 +119,7 @@ int main()
                	}
             break;
             case 7://ordenar pasajeros
-            	if(flag == 1)
+            	if(flag == 1 || ll_isEmpty(listaPasajeros) == 0)
             	{
                 	controller_sortPassenger(listaPasajeros);
             	}
@@ -107,20 +129,50 @@ int main()
             	}
             break;
             case 8://guardar los datos txt
-            	controller_saveAsText("data2.csv", listaPasajeros);
+            	if(flag == 1)
+            	{
+            		controller_saveAsText("data.csv", listaPasajeros);
+            		flagGuardadoTxt = 1;
+
+            	}
+            	else
+            	{
+            		printf("\nPrimero cargar la lista de pasajeros..\n\nRedirigiendo al menu principal...\n");
+            	}
             break;
             case 9://guardar los datos bn
-            	controller_saveAsBinary("data2.bin", listaPasajeros);
+            	if(flag == 1)
+            	{
+            		controller_saveAsBinary("data2.bin", listaPasajeros);
+            		flagGuardadoBn = 1;
+
+            	}
+            	else
+            	{
+            		printf("\nPrimero cargar la lista de pasajeros..\n\nRedirigiendo al menu principal...\n");
+            	}
             break;
             case 10:
-            	printf("\nLeft seccsfull....\n");
+            	if(flagGuardadoTxt == 0 || flagGuardadoBn == 0)
+            	{
+            		printf("\nAntes de salir del programa debe guardar en las opciones (8 y 9)\n\nRedirigiendo al menu principal...\n");
+            	}
+            	else
+            	{
+            		if(flagGuardadoTxt == 1 && flagGuardadoBn == 1)
+            		{
+            			printf("\n◉Left seccsfull....\n");
+            		}
+            	}
             break;
             default:
-            	printf("\nWrong option....\n");
+            	printf("\n◉Wrong option....\n");
             break;
         }
 
-    }while(option != 10);
+    }while(option != 10 || flagGuardadoTxt != 1 || flagGuardadoBn != 1);
 
-    return 0;
+    ll_deleteLinkedList(listaPasajeros);
+
+    return 0;//
 }
