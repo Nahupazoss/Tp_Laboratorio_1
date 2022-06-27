@@ -69,7 +69,7 @@ void hardcodePassenger(ePassenger pasajero[],int tamanio,int contador)
 	char names[][51]={"Nahuel","Manuela","Carlos","Agustin","Mariano"};
 	char lastNamePassenger[][51]={"Pazos","Lagos","Camusso","Scali","Tapari"};
 	float price[]={200,200,100,50,500};
-	char flyCode[][10]={"XHMT-2466","XHMT-2999","XHMT-4236","XHMT-2555","XHMT-6666"};
+	int idCode[]={1,2,3,4,5};
 	int typePassenger[]={2,2,3,3,1};
 	int statusFlight[]={2,2,3,3,1};
 	int i=0;
@@ -80,7 +80,7 @@ void hardcodePassenger(ePassenger pasajero[],int tamanio,int contador)
 			strcpy(pasajero[i].name, names[i]);
 			strcpy(pasajero[i].lastname,lastNamePassenger[i]);
 			pasajero[i].price = price[i];
-			strcpy(pasajero[i].flycode,flyCode[i]);
+			pasajero[i].idCode = idCode[i];
 			pasajero[i].typePassenger = typePassenger[i];
 			pasajero[i].statusFlight = statusFlight[i];
 			pasajero[i].isEmpty = 1;
@@ -95,14 +95,27 @@ void hardCodeType(eTypePassenger types[],int tamanio)
 	char descripcion[][15]={"Economic","Tourist","Premium"};
 	int i=0;
 
-	printf("\n===========================================TYPE===================================================\n");
 	for(i=0;i<tamanio;i++)
 	{
 		types[i].idTypePassenger = id[i];
 		strcpy(types[i].descripcion, descripcion[i]);
-		printf("◉Type:%s\t◉Num:%d\n",types[i].descripcion,types[i].idTypePassenger);
 	}
-	printf("\n==================================================================================================");
+}
+
+void list_CodeType(eTypePassenger types[],int tamanio)
+{
+	int i;
+
+	hardCodeType(types, tamanio);
+	printf("\n===========================================================================");
+	printf("\nCodigo \tType Passenger\n");
+	for(i = 0;i<tamanio;i++)
+	{
+		printf("\n %d\t  %s\n",types[i].idTypePassenger,types[i].descripcion);
+	}
+	printf("\n===========================================================================");
+	printf("\n");
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,14 +125,28 @@ void hardcodeStatus(eStatusFlight status[],int tamanio)
 	char descripcion[][10]={"Null","Active","Waiting"};
 	int i=0;
 
-	printf("\n===========================================STATUS=================================================\n");
 	for(i=0;i<tamanio;i++)
 	{
 		status[i].idStatusFlight = id[i];
 		strcpy(status[i].descripcion,descripcion[i]);
-		printf("◉Status:%s\t◉Num:%d\n",status[i].descripcion,status[i].idStatusFlight);
 	}
-	printf("\n==================================================================================================");
+
+}
+
+void list_Status(eStatusFlight status[],int tamanio)
+{
+	int i;
+
+	hardcodeStatus(status, tamanio);
+	printf("\n===========================================================================");
+	printf("\nCodigo \tStatus Flight\n");
+	for(i = 0;i<tamanio;i++)
+	{
+		printf("\n %d\t  %s\n",status[i].idStatusFlight,status[i].descripcion);
+	}
+	printf("\n===========================================================================");
+	printf("\n");
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,14 +156,28 @@ void hardCode(eFlyCode code[],int tamanio)
 	char descripcion[][10]={"XHMT-2466","XHMT-2999","XHMT-4236","XHMT-2555","XHMT-6666"};
 	int i=0;
 
-	printf("\n==========================================FLY CODE================================================\n");
 	for(i=0;i<tamanio;i++)
 	{
 		code[i].idFlyCode = id[i];
 		strcpy(code[i].descripcion,descripcion[i]);
-		printf("◉CODE:%s\t◉Num:%d\n",code[i].descripcion,code[i].idFlyCode);
 	}
-	printf("\n===================================================================================================");
+
+}
+
+void list_FlyCode(eFlyCode code[],int tamanio)
+{
+	int i;
+
+	hardCode(code, tamanio);
+	printf("\n===========================================================================");
+	printf("\nCodigo \tFly Code\n");
+	for(i = 0;i<tamanio;i++)
+	{
+		printf("\n %d\t  %s\n",code[i].idFlyCode,code[i].descripcion);
+	}
+	printf("\n===========================================================================");
+	printf("\n");
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -183,56 +224,31 @@ int buscarLibre(ePassenger listaPasajeros [],int tamanio)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void pedirDatos(ePassenger listaPasajeros [],int tamanio, int indice,int contador)
+void pedirDatos(ePassenger listaPasajeros[],int tamanio,int indice,eTypePassenger types[],eStatusFlight status[],int tamanio2,eFlyCode code[],int tamanio3,int contador)
 {
     printf("\n===========================================COMPLETE=================================================\n");
 
-		printf("◉Enter your name:");
-		fflush(stdin);
-		scanf("%[^\n]",listaPasajeros[indice].name);
+    	pedirChar("◉Enter your name:", "Solo se permiten letras", listaPasajeros[indice].name);
 
-		printf("◉Enter your lats name:");
-		fflush(stdin);
-		scanf("%[^\n]",listaPasajeros[indice].lastname);
+		pedirChar("◉Enter your lats name:", "Solo se permiten letras", listaPasajeros[indice].lastname);
 
-		printf("◉Enter price of your flight:");
-		scanf("%f",&listaPasajeros[indice].price);
-		while(listaPasajeros[indice].price <= 0)
-		{
-			printf("\nError\n");
-			printf("◉Enter price of your flight:");
-			scanf("%f",&listaPasajeros[indice].price);
-		}
+		listaPasajeros[indice].price = pedirNumFlotante("◉Enter price of your flight:", "Solo se permiten numeros mayores a 0", 1, 100000);
 
-		printf("◉Enter your code of your flight:(1-2-3-4-5)\n");
-		fflush(stdin);
-		scanf("%[^\n]",listaPasajeros[indice].flycode);
+		list_FlyCode(code, tamanio3);
+		listaPasajeros[indice].idCode = pedirNumeroInt("◉Enter your code of your flight:(1-2-3-4-5):", "Solo se permiten numeros del 1 al 5", 1, 5);
 
-		printf("◉Enter your type passenger:(1-2-3)\n");
-		fflush(stdin);
-		scanf("%d",&listaPasajeros[indice].typePassenger);
-		while(listaPasajeros[indice].typePassenger != 1 && listaPasajeros[indice].typePassenger != 2 && listaPasajeros[indice].typePassenger != 3 )
-		{
-			printf("◉Enter your type passenger:(1-2-3)\n");
-			fflush(stdin);
-			scanf("%d",&listaPasajeros[indice].typePassenger);
-		}
+		list_CodeType(types, tamanio2);
+		listaPasajeros[indice].typePassenger = pedirNumeroInt("◉Enter your type passenger:(1-2-3):", "Solo se permiten numeros del 1 al 3", 1, 3);
 
-		printf("◉Enter status flight:(1-2-3)\n");
-		scanf("%d",&listaPasajeros[indice].statusFlight);
-		while(listaPasajeros[indice].statusFlight != 1 && listaPasajeros[indice].statusFlight != 2 && listaPasajeros[indice].statusFlight != 3 )
-		{
-			printf("◉Enter your type passenger:(1-2-3)\n");
-			fflush(stdin);
-			scanf("%d",&listaPasajeros[indice].statusFlight);
-		}
+		list_Status(status, tamanio2);
+		listaPasajeros[indice].statusFlight = pedirNumeroInt("◉Enter status flight:(1-2-3):", "Solo se permiten numeros del 1 al 3", 1, 3);
 
 		printf("\n===================================================================================================");
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void altaPasajero(ePassenger listaPasajeros [],int tamanio , int contador)
+void altaPasajero(ePassenger listaPasajeros[],int tamanio, eTypePassenger types[],eStatusFlight status[],int tamanio2,eFlyCode code[],int tamanio3,int contador)
 {
 	int indice;
 
@@ -240,7 +256,7 @@ void altaPasajero(ePassenger listaPasajeros [],int tamanio , int contador)
 
 	if(indice != -1)
 	{
-		pedirDatos(listaPasajeros,tamanio,indice,contador);
+		pedirDatos(listaPasajeros,tamanio,indice,types,status,tamanio2,code,tamanio3,contador);
 
 		listaPasajeros[indice].isEmpty = 1;
 		listaPasajeros[indice].id = contador;
@@ -252,58 +268,44 @@ void altaPasajero(ePassenger listaPasajeros [],int tamanio , int contador)
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void listaModificar(ePassenger listaPasajeros [],int tamanio,int i)
+void listaModificarePassenger(ePassenger listaPasajeros[],int tamanio,int i,eTypePassenger types[],eStatusFlight status[],int tamanio2,eFlyCode code[],int tamanio3)
 {
 	int opcionModificar;
 
 	do
 	{
-		opcionModificar =subMenu();
+		opcionModificar = subMenu();
 		switch(opcionModificar)
 		{
 		case 1:
-			printf("◉NEW NAME:");
-			fflush(stdin);
-			scanf("%[^\n]",listaPasajeros[i].name);
+			pedirChar("◉NEW NAME:", "Solo se permiten letras", listaPasajeros[i].name);
 		break;
 		case 2:
-			printf("◉NEW LAST NAME:");
-			fflush(stdin);
-			scanf("%[^\n]",listaPasajeros[i].lastname);
+			pedirChar("◉NEW LAST NAME:", "Solo se permiten letras", listaPasajeros[i].lastname);
 		break;
 		case 3:
-			printf("◉NEW PRICE:");
-			scanf("%f",&listaPasajeros[i].price);
-			while(listaPasajeros[i].price <= 0)
-			{
-				printf("\nError\n");
-				printf("◉Enter price of your flight:");
-				scanf("%f",&listaPasajeros[i].price);
-			}
+			listaPasajeros[i].price = pedirNumFlotante("◉NEW PRICE:", "Solo se permiten numeros", 1, 100000);
 		break;
 		case 4:
-			printf("◉NEW FLY CODE:(options:1-2-3-4-5)");
-			fflush(stdin);
-			scanf("%[^\n]",listaPasajeros[i].flycode);
+			list_FlyCode(code, tamanio3);
+			listaPasajeros[i].idCode = pedirNumeroInt("\n◉NEW FLY CODE:(options:1-2-3-4-5)", "Solo se permiten numeros del 1 al 5", 1, 5);
 		break;
 		case 5:
-			printf("◉NEW TYPE PASSENGER:");
-			scanf("%d",&listaPasajeros[i].typePassenger);
-			while(listaPasajeros[i].typePassenger != 1 && listaPasajeros[i].typePassenger != 2 && listaPasajeros[i].typePassenger != 3 )
-			{
-				printf("◉Enter your type passenger:(1-2-3)\n");
-				fflush(stdin);
-				scanf("%d",&listaPasajeros[i].typePassenger);
-			}
+			list_CodeType(types, tamanio2);
+			listaPasajeros[i].typePassenger = pedirNumeroInt("\n◉NEW TYPE PASSENGER:", "Solo se permiten numeros del 1 al 3", 1, 3);
 		break;
 		case 6:
+			list_Status(status, tamanio2);
+			listaPasajeros[i].statusFlight = pedirNumeroInt("\n◉NEW STATUS FLIGHT:", "Solo se permiten numeros del 1 al 3", 1, 3);
+		break;
+		case 7:
 			printf("\nLeave...\n");
 		break;
 		default:
 			printf("\nWrong option...");
 		break;
 		}
-	}while(opcionModificar != 6);
+	}while(opcionModificar != 7);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -365,7 +367,7 @@ int modificarPasajeros(ePassenger listaPasajeros [],int tamanio,eTypePassenger t
 {
 	int i;
 	int auxId;
-	int retorno=-1;
+	int retorno = -1;
 
 	printf("\n===================================================================================================");
 	mostrarPasajeros2(listaPasajeros, tamanio, types, status, tamanio2, code, tamanio3);
@@ -376,8 +378,8 @@ int modificarPasajeros(ePassenger listaPasajeros [],int tamanio,eTypePassenger t
 	{
 		if(listaPasajeros[i].isEmpty == 1 && auxId == listaPasajeros[i].id )
 		{
-			retorno=1;
-			listaModificar(listaPasajeros, tamanio, i);
+			retorno = 1;
+			listaModificarePassenger(listaPasajeros, tamanio,i,types,status,tamanio2,code,tamanio3);
 		}
 	}
 	printf("\n===================================================================================================");
@@ -393,7 +395,7 @@ void mostrarPasajeros(ePassenger listaPasajeros [],int tamanio,eTypePassenger ty
 	printf("\n===================================================================================================");
 	for(i=0;i<tamanio;i++)
 	{
-		if(listaPasajeros[i].isEmpty==1)
+		if(listaPasajeros[i].isEmpty == 1)
 		{
 			for(j=0;j<tamanio2;j++)
 			{
@@ -405,9 +407,10 @@ void mostrarPasajeros(ePassenger listaPasajeros [],int tamanio,eTypePassenger ty
 						{
 							for(l=0;l<tamanio3;l++)
 							{
-								if(listaPasajeros[i].idCode == code[i].idFlyCode)
+								if(listaPasajeros[i].idCode == code[l].idFlyCode)
 								{
-									printf("\n%s\t%s\t            $%.2f\t   %s\t          %s\t       %s\t %d ",listaPasajeros[i].name,listaPasajeros[i].lastname,listaPasajeros[i].price,code[l].descripcion,types[j].descripcion,status[k].descripcion,listaPasajeros[i].id);
+									printf("\n%s\t%s\t            $%.2f\t   %s\t          %s\t       %s\t %d ",listaPasajeros[i].name,listaPasajeros[i].lastname,listaPasajeros[i].price,
+											code[l].descripcion,types[j].descripcion,status[k].descripcion,listaPasajeros[i].id);
 								}
 							}
 
@@ -420,7 +423,7 @@ void mostrarPasajeros(ePassenger listaPasajeros [],int tamanio,eTypePassenger ty
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-int ordenarCodigo(ePassenger listaPasajeros [], int tamanio)
+/*int ordenarCodigo(ePassenger listaPasajeros [], int tamanio)
 {
 	int retorno = -1;
 	int i;
@@ -435,16 +438,16 @@ int ordenarCodigo(ePassenger listaPasajeros [], int tamanio)
 			{
 				if(strcmp(listaPasajeros[i].flycode,listaPasajeros[i].flycode)>0)
 				{
-					aux=listaPasajeros[i];
-					listaPasajeros[i]=listaPasajeros[j];
-					listaPasajeros[j]=aux;
-					retorno=1;
+					aux = listaPasajeros[i];
+					listaPasajeros[i] = listaPasajeros[j];
+					listaPasajeros[j] = aux;
+					retorno = 1;
 				}
 			}
 		}
 	}
 	return retorno;
-}
+}*/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int ordenarApellido(ePassenger listaPasajeros [], int tamanio)
@@ -460,17 +463,18 @@ int ordenarApellido(ePassenger listaPasajeros [], int tamanio)
 		{
 			for(j=i+1;j<tamanio;j++)
 			{
-				if(strcmp(listaPasajeros[i].lastname,listaPasajeros[j].name)>0)
+				if(strcmp(listaPasajeros[i].lastname,listaPasajeros[j].lastname) > 0)
 				{
-					aux=listaPasajeros[i];
-					listaPasajeros[i]=listaPasajeros[j];
-					listaPasajeros[j]=aux;
-					retorno=1;
-					if(strcmp(listaPasajeros[i].lastname,listaPasajeros[j].lastname)==0)
+					aux = listaPasajeros[i];
+					listaPasajeros[i] = listaPasajeros[j];
+					listaPasajeros[j] = aux;
+					retorno = 1;
+
+					if(strcmp(listaPasajeros[i].lastname,listaPasajeros[j].lastname) == 0)
 					{
 						if(listaPasajeros[i].lastname > listaPasajeros[i].lastname)
 						{
-							aux=listaPasajeros[i];
+							aux = listaPasajeros[i];
 							listaPasajeros[i] = listaPasajeros[j];
 							listaPasajeros[j] = aux;
 						}
@@ -491,7 +495,7 @@ void mostrarActivos(ePassenger pasajero[],int tamanio , eTypePassenger types[],e
 	printf("\n===================================================================================================");
 	for(i=0;i<tamanio;i++)
 	{
-		if(pasajero[i].statusFlight==2 && pasajero[i].isEmpty==1)
+		if(pasajero[i].statusFlight == 2 && pasajero[i].isEmpty == 1)
 		{
 			printf("\n%s\t%s\t	%d",pasajero[i].name,pasajero[i].lastname,pasajero[i].id);
 		}

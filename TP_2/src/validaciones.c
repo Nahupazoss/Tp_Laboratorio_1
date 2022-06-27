@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include "validaciones.h"
+#include "arrayPassenger.h"
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int validarNumero(char numero[])//crear funcion
@@ -62,10 +64,11 @@ int validarChar(char palabra[])//crear funcion
 int pedirChar(char mensaje[],char mensajeError[],char* palabra)//crear funcion
 {
     int retorno = -1;
-    char auxPalabra;
+    char auxPalabra[20];
 
     printf(mensaje);
     scanf("%s",auxPalabra);
+
     while(!validarChar(auxPalabra))
     {
         printf(mensajeError);
@@ -94,7 +97,7 @@ int subMenu()
 {
 	int opcion1;
 	  printf("\n============================================MODIFY=================================================");
-	opcion1 = pedirEntero("\n1〉〉NAME\n2〉〉LAST NAME\n3〉〉PRICE\n4〉〉FLY CODE\n5〉〉TYPE PASSENGER\n6〉〉OUT\n◉Opcion:","ERROR");
+	opcion1 = pedirEntero("\n1〉〉NAME\n2〉〉LAST NAME\n3〉〉PRICE\n4〉〉FLY CODE\n5〉〉TYPE PASSENGER\n6〉〉STATUS FLIGHT\n7〉〉OUT\n◉Opcion:","ERROR");
 	  printf("===================================================================================================\n");
 	return opcion1;
 }
@@ -113,3 +116,35 @@ int subMenuInformar()
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+float pedirNumFlotante(char mensaje[],char mensajeError[], int min, int max)//crear funcion
+{
+    float numero;
+
+    printf(mensaje);
+    scanf("%f",&numero);
+
+    while(numero > max || numero < min)
+    {
+        printf(mensajeError);
+        printf(mensaje);
+        scanf("%f",&numero);
+    }
+    return numero;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int pedirNumeroInt(char mensaje[],char mensajeError[],int min,int max)//crear funcion
+{
+    int numero;
+
+    printf(mensaje);
+    scanf("%d",&numero);
+
+    while(numero > max || numero < min)
+    {
+    	printf(mensajeError);
+    	printf(mensaje);
+    	scanf("%d",&numero);
+    }
+    return numero;
+}

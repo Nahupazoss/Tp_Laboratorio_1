@@ -32,7 +32,6 @@ struct
 	char name[51];
 	char lastname[51];
 	float price;
-	char flycode[10];
 	int idCode;
 	int typePassenger;
 	int statusFlight;
@@ -70,7 +69,7 @@ int buscarLibre (ePassenger listaPasajeros [],int tamanio);
  * @param tamanio los 200 espacios de la lista
  * @param contador incrementa el id de 1 a 2000
  */
-void altaPasajero(ePassenger listaPasajeros [],int tamanio,int contador);
+void altaPasajero(ePassenger listaPasajeros[],int tamanio , eTypePassenger types[],eStatusFlight status[],int tamanio2,eFlyCode code[],int tamanio3,int contador);
 //=======================================================================
 /**
  *muestro todos los printf para pedir los datos (nombre-apellido-precio-status-codigo-type)
@@ -78,7 +77,7 @@ void altaPasajero(ePassenger listaPasajeros [],int tamanio,int contador);
  * @param tamanio los 200 espacios de la lista
  * @param indice para saber que se llenaron los datos pedidos
  */
-void pedirDatos(ePassenger listaPasajeros [],int tamanio, int indice,int contador);
+void pedirDatos(ePassenger listaPasajeros[],int tamanio,int indice,eTypePassenger types[],eStatusFlight status[],int tamanio2,eFlyCode code[],int tamanio3,int contador);
 //=======================================================================
 /**
  *si se cumplen las condiciones se borra un pasajero de la lista y si no se cumple muestra mensaje
@@ -103,7 +102,7 @@ int modificarPasajeros(ePassenger listaPasajeros [],int tamanio,eTypePassenger t
  * @param tamanio
  * @param i
  */
-void listaModificar(ePassenger listaPasajeros [],int tamanio,int i);
+void listaModificarePassenger (ePassenger listaPasajeros[],int tamanio,int i,eTypePassenger types[],eStatusFlight status[],int tamanio2,eFlyCode code[],int tamanio3);
 //=======================================================================
 /**
  *	ordena x codigo mediante el burbujeo
@@ -213,4 +212,26 @@ void mostrarActivos(ePassenger pasajero[],int tamanio , eTypePassenger types[],e
  * @param tamanio3
  */
 void mostrarPasajeros2(ePassenger pasajero[],int tamanio , eTypePassenger types[],eStatusFlight status[],int tamanio2,eFlyCode code[],int tamanio3);
+//=======================================================================
+/**
+ *	lista fly code
+ * @param types
+ * @param tamanio
+ */
+void list_CodeType(eTypePassenger types[],int tamanio);
+//=======================================================================
+/**
+ * lista status flight
+ * @param status
+ * @param tamanio
+ */
+void list_Status(eStatusFlight status[],int tamanio);
+//=======================================================================
+/**
+ *	lista flycode
+ * @param code
+ * @param tamanio
+ */
+void list_FlyCode(eFlyCode code[],int tamanio);
+//=======================================================================
 #endif /* ARRAYPASSENGER_H_ */

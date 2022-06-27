@@ -30,11 +30,51 @@ int pedirEntero(char mensaje[],char mensajeError[]);
 int menu();
 //=======================================================================
 /**
- * submenu para util
+ * submenu para modificar
  * @return
  */
 int subMenu();
 //=======================================================================
-
+/**
+ * verifica que sean caracteres
+ * @param palabra
+ * @return
+ */
+int validarChar(char palabra[]);//crear funcion
+//=======================================================================
+/**
+ * se utiliza para pedir caracteres y si no es caracter muestra mensaje de error,
+ * dentro de esta funcion se utiliza el validarchar
+ * @param mensaje
+ * @param mensajeError
+ * @param palabra
+ * @return
+ */
+int pedirChar(char mensaje[],char mensajeError[],char* palabra);
+//=======================================================================
+/**
+ * menu de informar
+ * @return
+ */
 int subMenuInformar();
+//=======================================================================
+/**
+ * pide un numero flotante y que este dentro de los rangos minimo y maximo
+ * @param mensaje
+ * @param mensajeError
+ * @param min
+ * @param max
+ * @return
+ */
+float pedirNumFlotante(char mensaje[],char mensajeError[], int min, int max);//crear funcion
+//=======================================================================
+/**
+ * pide un numero intero que este dentro de los rangos minimo y maximo
+ * @param mensaje
+ * @param mensajeError
+ * @param min
+ * @param max
+ * @return
+ */
+int pedirNumeroInt(char mensaje[],char mensajeError[],int min,int max);
 #endif /* VALIDACIONES_H_ */

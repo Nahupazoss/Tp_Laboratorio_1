@@ -47,10 +47,8 @@ int main(void)
 		{
 		case 1://alta
 			contador++;
-			altaPasajero(pasajero,TAM,contador);
-
+			altaPasajero(pasajero,TAM,types,status,TAMTYPE,code,TAMP,contador);
 		break;
-
 		case 2://modificar
 			if(contador > 0)
 			{
@@ -61,7 +59,6 @@ int main(void)
 				printf("Enter passengers first (option 1)..\n");
 			}
 		break;
-
 		case 3://baja
 			if(contador > 0)
 			{
@@ -79,15 +76,12 @@ int main(void)
 				printf("\nEnter passengers first (option 1)..\n");
 			}
 		break;
-
 		case 4://informar
-			opcionesLista(pasajero, TAM, types, status,TAMTYPE, code,1,contador);
+			opcionesLista(pasajero, TAM, types, status,TAMTYPE, code,TAMP,contador);
 		break;
-
 		case 5://salir
 			printf("\nLeave");
 		break;
-
 		default:
 			printf("\nWrong option...");
 		break;
