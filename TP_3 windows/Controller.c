@@ -25,17 +25,19 @@ int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
 	if(pArrayListPassenger != NULL && path != NULL)
 	{
 		pArchivo = fopen(path,"r");
+
 		if(pArchivo != NULL)
 		{
-			parser_PassengerFromText(pArchivo, pArrayListPassenger);
+			parser_PassengerFromText(pArchivo,pArrayListPassenger);
 			printf("\n◉Carga exitosa...\n");
+			retorno = 0;
 		}
 		else
 		{
 			printf("\n◉Error con la carga\n");
 		}
 		fclose(pArchivo);
-		retorno = 0;
+
 	}
     return retorno;
 }
