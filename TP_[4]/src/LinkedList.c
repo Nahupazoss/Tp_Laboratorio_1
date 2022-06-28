@@ -65,7 +65,7 @@ static Node* getNode(LinkedList* this, int nodeIndex)
 	int tam = ll_len(this);
 	Node* pNodo = NULL;
 
-	if(this != NULL && nodeIndex > -1 && nodeIndex < tam)
+	if(this != NULL && nodeIndex >= 0 && nodeIndex < tam)
 	{
 		pNodo = this->pFirstNode;//obtenemos el primer nodo de la lista
 
@@ -109,10 +109,9 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 	int returnAux = -1;
 	Node* pNode = NULL;
 	Node* auxNode = NULL;
-
 	int tam;
 
-	if(this != NULL && nodeIndex > -1)
+	if(this != NULL && nodeIndex >= 0)
 	{
 		tam = ll_len(this); //obtenemos el tamaño
 
@@ -123,7 +122,7 @@ static int addNode(LinkedList* this, int nodeIndex,void* pElement)
 			if(pNode != NULL)
 			{
 				pNode->pElement = pElement; // pasamos el elemento
-				this->size += 1; //incrementamos el tamaño de la ll
+				this->size++;; //incrementamos el tamaño de la ll
 				returnAux = 0;
 
 				if(nodeIndex == 0)
@@ -643,8 +642,8 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 		{
 			for(j=i+1;j<tam;j++)
 			{
-				elementoUno = ll_get(this, i);//ob
-				elementoDos = ll_get(this, j+1);//borarr +1 si rompe//ob
+				elementoUno = ll_get(this, i);
+				elementoDos = ll_get(this, j);
 				retornoFuncion = pFunc(elementoUno,elementoDos);
 
 				if(order == 0 && retornoFuncion < 0)
