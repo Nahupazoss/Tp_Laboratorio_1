@@ -69,22 +69,14 @@ int main()
             	}
             break;
             case 3://alta
-            	if(flag == 1)
+            	controlador = controller_addPassenger(listaPasajeros);
+            	if(controlador == 0)
             	{
-            		controlador = controller_addPassenger(listaPasajeros);
-
-            		if(controlador == 0)
-            		{
-            			printf("\nEl pasajero se ha agregado exitosamente\n");
-            		}
-            		else
-            		{
-            			printf("\nNo se ha podido agregar al pasajero\n\nPorfavor,reintente o verifique que la lista no este llena\n");
-            		}
+            		printf("\nEl pasajero se añadio exitosamente\n");
             	}
             	else
             	{
-            		printf("\nPrimero cargar la lista en texto o binario...\n\nRedirigiendo al menu principal\n");
+            		printf("\nEl pasajero no se ha podido añadir..\n\nPorfavor reintente..\n");
             	}
             break;
             case 4://modificar
@@ -98,7 +90,7 @@ int main()
             		}
             		else
             		{
-            			printf("\nEl pasajero no se ha  podido modificar..\n\nPorfavor reintente..\n");
+            			printf("\nEl pasajero no se ha podido modificar..\n\nPorfavor reintente..\n");
             		}
             	}
             	else
